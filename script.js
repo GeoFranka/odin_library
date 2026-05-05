@@ -28,33 +28,45 @@ function displayLibrary(bookArray){
         let card = document.createElement("div");
         card.classList.add("card");
 
+        const upperPart = document.createElement("div");
+        upperPart.classList.add("upper");
+
         let author = document.createElement("div");
         author.textContent = book.author;
         author.classList.add("author");
-        card.appendChild(author);
+        upperPart.appendChild(author);
         
         let title = document.createElement("div");
         title.textContent = book.title;
         title.classList.add("title");
-        card.appendChild(title);
+        upperPart.appendChild(title);
+
+        card.appendChild(upperPart);
         
+        const lowerPart = document.createElement("div");
+        lowerPart.classList.add("lower");
+
         let pages = document.createElement("div");
         pages.textContent = book.pages + " pages";
         pages.classList.add("pages");
-        card.appendChild(pages);
+        lowerPart.appendChild(pages);
         
         let read = document.createElement("div");
-        let label = document.createElement("Label");
-        label.textContent = "read";
+        let label = document.createElement("label");
         let checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
         if(book.read){
             checkbox.setAttribute("checked", "");
         }
         label.appendChild(checkbox);
+        const labelText = document.createElement("span");
+        labelText.textContent = " read";
+        label.appendChild(labelText);
         read.appendChild(label);
         read.classList.add("read");
-        card.appendChild(label);
+        lowerPart.appendChild(label);
+
+        card.appendChild(lowerPart);
         
         libContainer.appendChild(card);
     }

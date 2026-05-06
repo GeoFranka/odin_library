@@ -35,7 +35,7 @@ function displayLibrary(){
 
     for(const book of myLibrary){
         const card = createDiv("card");
-        card.setAttribute("data-id", book.id);
+        card.dataset.id = book.id;
 
         const upperPart = createDiv("upper");
         const authorTitleDiv = document.createElement("div");
@@ -64,8 +64,7 @@ function displayLibrary(){
         let pages = createDiv("pages", book.pages + " pages");
         lowerPart.appendChild(pages);
         
-        let read = document.createElement("div");
-        read.classList.add("read");
+        let read = createDiv("read");
         let label = document.createElement("label");
         let checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
@@ -114,8 +113,8 @@ saveBtn.addEventListener("click", (e) => {
     displayLibrary();
 });
 
-function deleteBook(event){
-    const id = event.target.closest(".card").dataset.id;
+function deleteBook(e){
+    const id = e.target.closest(".card").dataset.id;
     const index = myLibrary.findIndex((book)=>{
         return book.id == id;
     });

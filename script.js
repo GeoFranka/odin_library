@@ -20,11 +20,12 @@ addBookToLibrary("Emine Sevgi Özdamar", "Ein von Schatten begrenzter Raum", 763
 addBookToLibrary("Eva Illouz", "Warum Liebe weh tut", 467, false);
 addBookToLibrary("Marjane Satrapi", "The Complete Persepolis", 341, true);
 
-function displayLibrary(bookArray){
+function displayLibrary(){
 
     const libContainer = document.querySelector("#lib");
+    libContainer.textContent = "";
 
-    for(const book of bookArray){
+    for(const book of myLibrary){
         let card = document.createElement("div");
         card.classList.add("card");
 
@@ -73,4 +74,24 @@ function displayLibrary(bookArray){
 
 }
 
-displayLibrary(myLibrary);
+displayLibrary();
+
+const dialog = document.getElementById("addDialog");
+const openBtn = document.getElementById("addBtn");
+
+openBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+const saveBtn = document.getElementById("saveBtn");
+
+saveBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    addBookToLibrary(
+        document.getElementById("formAuthor").value,
+        document.getElementById("formTitle").value,
+        document.getElementById("formPages").value,
+        document.getElementById("formRead").checked);
+    dialog.close();
+    displayLibrary();
+});

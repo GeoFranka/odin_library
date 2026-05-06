@@ -9,7 +9,20 @@
 </head>
 <body>
     
-    <h1>My Library</h1>
+    <div class="flex" id="head">
+        <h1>My Library</h1>
+        <button type="button" id="addBtn">Add a new book</button>
+    </div>
+    <dialog closedby="any" id="addDialog">
+        <h3>Add your book details here:</h3>
+        <form action="get" id="addForm">
+            <p class="form-row"><label for="formAuthor">Author:</label><input type="text" name="author" id="formAuthor" required></p>
+            <p class="form-row"><label for="formTitle">Title:</label><input type="text" name="title" id="formTitle" required></p>
+            <p class="form-row"><label for="formPages">Pages:</label><input type="number" name="pages" id="formPages"></p>
+            <label for="formRead"><input type="checkbox" name="read" id="formRead"> Have you read it yet?</label>
+        </form>
+        <button type="submit" form="addForm" id="saveBtn">Save to library</button>
+    </dialog>
     <div id="lib"></div>
 
 </body>

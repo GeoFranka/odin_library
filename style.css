@@ -11,6 +11,10 @@ button {
     padding: 10px 20px;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 h3 {
     margin: 0;
 }
@@ -64,4 +68,19 @@ input[type="text"], input[type="number"] {
 .title {
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.upper {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+}
+
+.delete {
+    grid-row: 1 / -1;
+    grid-column-start: 2;
+}
+
+.delBtn {
+    padding: 5px 10px;
+    border-radius: 5px;
 }

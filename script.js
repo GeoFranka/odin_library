@@ -65,18 +65,12 @@ function displayLibrary(){
         lowerPart.appendChild(pages);
         
         let read = createDiv("read");
-        let label = document.createElement("label");
-        let checkbox = document.createElement("input");
-        checkbox.setAttribute("type", "checkbox");
-        if(book.read){
-            checkbox.setAttribute("checked", "");
-        }
-        label.appendChild(checkbox);
-        const labelText = document.createElement("span");
-        labelText.textContent = " read";
-        label.appendChild(labelText);
-        read.appendChild(label);
-        lowerPart.appendChild(label);
+        let button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("title", "mark as " + (book.read?"unread":"read"));
+        button.classList.add(book.read?"status-read":"status-unread");
+        read.appendChild(button);
+        lowerPart.appendChild(read);
 
         card.appendChild(lowerPart);
         

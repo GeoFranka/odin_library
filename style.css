@@ -84,3 +84,25 @@ input[type="text"], input[type="number"] {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.read button {
+    background-size: 75%;
+    background-color: white;
+    height: 2.5rem;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.read button:hover{
+    background-color: lightgray;
+}
+
+.status-read {
+    background: url(icons/book-open-blank-variant-outline.svg) center no-repeat;
+}
+.status-unread {
+    background: url(icons/book-outline.svg) center no-repeat;
+}

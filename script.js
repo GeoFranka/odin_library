@@ -8,6 +8,10 @@ function Book(author, title, pages, read) {
     this.read = read;
 }
 
+Book.prototype.changeReadStatus = function(){
+    this.read = !(this.read);
+};
+
 function addBookToLibrary(author, title, pages, read) {
     myLibrary.push(new Book(author, title, pages, read));
 }
@@ -78,9 +82,13 @@ function displayLibrary(){
     }
 
     const deleteBtns = document.querySelectorAll(".delBtn");
-
-    for(let i = 0; i<deleteBtns.length; i++){
+    for(let i=0; i<deleteBtns.length; i++){
         deleteBtns[i].addEventListener("click", deleteBook);
+    }
+
+    const readStatusBtns = document.querySelectorAll(".read button");
+    for(let i=0; i<readStatusBtns.length; i++){
+        readStatusBtns[i].addEventListener("click", changeReadStatusOfBook);
     }
 
 }
@@ -113,5 +121,14 @@ function deleteBook(e){
         return book.id == id;
     });
     myLibrary.splice(index, 1);
+    displayLibrary();
+}
+
+function changeReadStatusOfBook(e){
+    const id = e.target.closest(".card").dataset.id;
+    const book = myLibrary.find((book)=>{
+        return book.id == id;
+    });
+    book.changeReadStatus();
     displayLibrary();
 }

@@ -55,7 +55,9 @@ function displayLibrary(){
         const deleteDiv = createDiv("delete");
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delBtn");
+        deleteBtn.classList.add("btn");
         deleteBtn.setAttribute("type", "button");
+        deleteBtn.setAttribute("title", "Remove this book from the library");
         deleteBtn.textContent = "x";
         deleteDiv.appendChild(deleteBtn);
 
@@ -80,6 +82,14 @@ function displayLibrary(){
         
         libContainer.appendChild(card);
     }
+
+    document.getElementById("number").textContent = myLibrary.length + " books";
+    document.getElementById("pages").textContent = myLibrary.reduce((total, book) => {
+            return total + book.pages;
+        }, 0) + " pages";
+    document.getElementById("read").textContent = myLibrary.reduce((total, book) => {
+            return total + (book.read ? 1 : 0);
+        }, 0) + " read";
 
     const deleteBtns = document.querySelectorAll(".delBtn");
     for(let i=0; i<deleteBtns.length; i++){

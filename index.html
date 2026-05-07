@@ -11,7 +11,12 @@
     
     <div class="flex" id="head">
         <h1>My Library</h1>
-        <button type="button" id="addBtn">Add a new book</button>
+        <button type="button" id="addBtn" class="btn">Add a new book</button>
+        <div class="flex" id="info">
+            <p><img src="icons/bookshelf.svg" alt="" class="icon"><span id="number"></span></p>
+            <p><img src="icons/note-multiple-outline.svg" alt="" class="icon"><span id="pages"></span></p>
+            <p><img src="icons/book-check-outline.svg" alt="" class="icon"><span id="read"></span></p>
+        </div>
     </div>
     <dialog closedby="any" id="addDialog">
         <h3>Add your book details here:</h3>
@@ -21,7 +26,7 @@
             <p class="form-row"><label for="formPages">Pages:</label><input type="number" name="pages" id="formPages"></p>
             <label for="formRead"><input type="checkbox" name="read" id="formRead"> Have you read it yet?</label>
         </form>
-        <button type="submit" form="addForm" id="saveBtn">Save to library</button>
+        <button type="submit" form="addForm" id="saveBtn" class="btn">Save to library</button>
     </dialog>
     <div id="lib"></div>
 

@@ -9,6 +9,7 @@ body {
 
 button {
     padding: 10px 20px;
+    font-size: 1rem;
 }
 
 button:hover {
@@ -56,8 +57,8 @@ input[type="text"], input[type="number"] {
 }
 
 .card {
-    background-color: beige;
-    border: 2px solid brown;
+    background-color: lightblue;
+    border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
     display: grid;
@@ -86,12 +87,12 @@ input[type="text"], input[type="number"] {
 }
 
 .read button {
-    background-size: 75%;
+    background-size: 70%;
     background-color: white;
     height: 2.5rem;
     aspect-ratio: 1 / 1;
     border: none;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 10px;
     margin: 10px 0;
 }

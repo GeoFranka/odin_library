@@ -12,6 +12,29 @@ Book.prototype.changeReadStatus = function(){
     this.read = !(this.read);
 };
 
+Book.prototype.edit = function(){
+    document.getElementById("formId").value = this.id;
+    document.getElementById("formAuthor").value = this.author;
+    document.getElementById("formTitle").value = this.title;
+    document.getElementById("formPages").value = this.pages;
+    document.getElementById("formRead").checked = this.read;
+    document.querySelectorAll("#addDialog > *").forEach((e)=>{
+        if(e.classList.contains("add")){
+            e.style.display = "none";
+        } else if(e.classList.contains("change")){
+            e.style.display = "block";
+        }
+    });
+    dialog.showModal();
+}
+
+Book.prototype.changeData = function(author, title, pages, read){
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+}
+
 function addBookToLibrary(author, title, pages, read) {
     myLibrary.push(new Book(author, title, pages, read));
 }
@@ -30,6 +53,17 @@ function createDiv(cssClass, textContent){
         newDiv.textContent = textContent;
     }
     return newDiv;
+}
+
+function createButton(cssClasses, textContent, title){
+    const button = document.createElement("button");
+    button.setAttribute("type", "button");
+    for(const cl of cssClasses.split(" ")){
+        button.classList.add(cl);
+    }
+    button.setAttribute("title", title);
+    button.textContent = textContent;
+    return button;
 }
 
 function displayLibrary(){
@@ -52,22 +86,19 @@ function displayLibrary(){
 
         upperPart.appendChild(authorTitleDiv);
 
-        const deleteDiv = createDiv("delete");
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("delBtn");
-        deleteBtn.classList.add("btn");
-        deleteBtn.setAttribute("type", "button");
-        deleteBtn.setAttribute("title", "Remove this book from the library");
-        deleteBtn.textContent = "x";
-        deleteDiv.appendChild(deleteBtn);
-
-        upperPart.appendChild(deleteDiv);
+        const buttonsDiv = createDiv("buttons");
+        const deleteBtn = createButton("delBtn btn", "x", "Remove this book from the library");
+        const editBtn = createButton("editBtn btn", "", "Edit this book");
+        buttonsDiv.appendChild(deleteBtn);
+        buttonsDiv.appendChild(editBtn);
+        
+        upperPart.appendChild(buttonsDiv);
 
         card.appendChild(upperPart);
         
         const lowerPart = createDiv("lower");
 
-        let pages = createDiv("pages", book.pages + " pages");
+        let pages = createDiv("pages", book.pages>0 ? book.pages + " pages" : "");
         lowerPart.appendChild(pages);
         
         let read = createDiv("read");
@@ -85,7 +116,7 @@ function displayLibrary(){
 
     document.getElementById("number").textContent = myLibrary.length + " books";
     document.getElementById("pages").textContent = myLibrary.reduce((total, book) => {
-            return total + book.pages;
+            return total + Number(book.pages);
         }, 0) + " pages";
     document.getElementById("read").textContent = myLibrary.reduce((total, book) => {
             return total + (book.read ? 1 : 0);
@@ -94,6 +125,11 @@ function displayLibrary(){
     const deleteBtns = document.querySelectorAll(".delBtn");
     for(let i=0; i<deleteBtns.length; i++){
         deleteBtns[i].addEventListener("click", deleteBook);
+    }
+
+    const editBtns = document.querySelectorAll(".editBtn");
+    for(let i=0; i<editBtns.length; i++){
+        editBtns[i].addEventListener("click", editBook);
     }
 
     const readStatusBtns = document.querySelectorAll(".read button");
@@ -109,6 +145,13 @@ const dialog = document.getElementById("addDialog");
 const openBtn = document.getElementById("addBtn");
 
 openBtn.addEventListener("click", () => {
+    document.querySelectorAll("#addDialog > *").forEach((e)=>{
+        if(e.classList.contains("change")){
+            e.style.display = "none";
+        } else if(e.classList.contains("add")){
+            e.style.display = "block";
+        }
+    });
     dialog.showModal();
 });
 
@@ -116,12 +159,25 @@ const saveBtn = document.getElementById("saveBtn");
 
 saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    addBookToLibrary(
-        document.getElementById("formAuthor").value,
-        document.getElementById("formTitle").value,
-        document.getElementById("formPages").value,
-        document.getElementById("formRead").checked);
+    if(document.getElementById("formId").value == ""){
+        addBookToLibrary(
+            document.getElementById("formAuthor").value,
+            document.getElementById("formTitle").value,
+            document.getElementById("formPages").value,
+            document.getElementById("formRead").checked);
+    } else {
+        const id = document.getElementById("formId").value;
+        const book = myLibrary.find((book)=>{
+            return book.id == id;
+        });
+        book.changeData(
+            document.getElementById("formAuthor").value,
+            document.getElementById("formTitle").value,
+            document.getElementById("formPages").value,
+            document.getElementById("formRead").checked);
+    }
     dialog.close();
+    document.getElementById("addForm").reset();
     displayLibrary();
 });
 
@@ -141,4 +197,12 @@ function changeReadStatusOfBook(e){
     });
     book.changeReadStatus();
     displayLibrary();
+}
+
+function editBook(e){
+    const id = e.target.closest(".card").dataset.id;
+    const book = myLibrary.find((book)=>{
+        return book.id == id;
+    });
+    book.edit();
 }

@@ -15,16 +15,18 @@
         <div class="flex" id="info">
             <p><img src="icons/bookshelf.svg" alt="" class="icon"><span id="number"></span></p>
             <p><img src="icons/note-multiple-outline.svg" alt="" class="icon"><span id="pages"></span></p>
-            <p><img src="icons/book-check-outline.svg" alt="" class="icon"><span id="read"></span></p>
+             <p><img src="icons/book-open-blank-variant-outline.svg" alt="" class="icon"><span id="read"></span></p>
         </div>
     </div>
     <dialog closedby="any" id="addDialog">
-        <h3>Add your book details here:</h3>
+        <h3 class="add">Add your book details:</h3>
+        <h3 class="change">Change your book details:</h3>
         <form action="" id="addForm">
+            <input type="hidden" name="id" id="formId">
             <p class="form-row"><label for="formAuthor">Author:</label><input type="text" name="author" id="formAuthor" required></p>
             <p class="form-row"><label for="formTitle">Title:</label><input type="text" name="title" id="formTitle" required></p>
             <p class="form-row"><label for="formPages">Pages:</label><input type="number" name="pages" id="formPages"></p>
-            <label for="formRead"><input type="checkbox" name="read" id="formRead"> Have you read it yet?</label>
+            <label for="formRead"><input type="checkbox" name="read" id="formRead"> Have you read it?</label>
         </form>
         <button type="submit" form="addForm" id="saveBtn" class="btn">Save to library</button>
     </dialog>

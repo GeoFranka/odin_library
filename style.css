@@ -80,6 +80,14 @@ input[type="text"], input[type="number"] {
     padding: 5px 10px;
 }
 
+input:required {
+    border: 2px solid black;
+}
+
+.validated:invalid {
+    border: 1px dashed red;
+}
+
 .card {
     background-color: lightblue;
     border: 2px solid black;

@@ -153,6 +153,9 @@ form.addEventListener('reset', function() {
     this.querySelectorAll("input[type=hidden]").forEach(input=>{
         input.value = "";
     });
+    this.querySelectorAll("input[required]").forEach(input=>{
+        input.classList.remove("validated");
+    });
 });
 
 openBtn.addEventListener("click", () => {
@@ -166,6 +169,18 @@ const saveBtn = document.getElementById("saveBtn");
 saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+    let valid = true;
+    const requiredInputs = form.querySelectorAll("input[required]");
+    for(input of requiredInputs){
+        if(input.value==""){
+            input.classList.add("validated");
+            valid = false;
+        }
+    }
+    if(!valid){
+        alert("Bitte alle Pflichtfelder ausfüllen!");
+        return;
+    }
     if(formData.get("id") == ""){
         addBookToLibrary(
             formData.get("author"),

@@ -18,13 +18,7 @@ Book.prototype.edit = function(){
     document.getElementById("formTitle").value = this.title;
     document.getElementById("formPages").value = this.pages;
     document.getElementById("formRead").checked = this.read;
-    document.querySelectorAll("#addDialog > *").forEach((e)=>{
-        if(e.classList.contains("add")){
-            e.style.display = "none";
-        } else if(e.classList.contains("change")){
-            e.style.display = "block";
-        }
-    });
+    toggleForm("change");
     dialog.showModal();
 }
 
@@ -33,6 +27,16 @@ Book.prototype.changeData = function(author, title, pages, read){
     this.title = title;
     this.pages = pages;
     this.read = read;
+}
+
+function toggleForm(variant){
+    document.querySelectorAll("#addDialog > *").forEach((e)=>{
+        if(e.classList.contains("add")){
+            e.style.display = variant=="change" ? "none" : "block";
+        } else if(e.classList.contains("change")){
+            e.style.display = variant=="change" ? "block" : "none";
+        }
+    });   
 }
 
 function addBookToLibrary(author, title, pages, read) {
@@ -142,16 +146,16 @@ function displayLibrary(){
 displayLibrary();
 
 const dialog = document.getElementById("addDialog");
+const form = document.getElementById("addForm");
 const openBtn = document.getElementById("addBtn");
 
+form.addEventListener('reset', function() {
+   document.getElementById("formId").value = ""; 
+});
+
 openBtn.addEventListener("click", () => {
-    document.querySelectorAll("#addDialog > *").forEach((e)=>{
-        if(e.classList.contains("change")){
-            e.style.display = "none";
-        } else if(e.classList.contains("add")){
-            e.style.display = "block";
-        }
-    });
+    toggleForm("add");
+    form.reset();
     dialog.showModal();
 });
 
@@ -159,25 +163,26 @@ const saveBtn = document.getElementById("saveBtn");
 
 saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    if(document.getElementById("formId").value == ""){
+    const formData = new FormData(form);
+    if(formData.get("id") == ""){
         addBookToLibrary(
-            document.getElementById("formAuthor").value,
-            document.getElementById("formTitle").value,
-            document.getElementById("formPages").value,
-            document.getElementById("formRead").checked);
+            formData.get("author"),
+            formData.get("title"),
+            formData.get("pages"),
+            formData.get("read") != null);
     } else {
-        const id = document.getElementById("formId").value;
+        const id = formData.get("id");
         const book = myLibrary.find((book)=>{
             return book.id == id;
         });
         book.changeData(
-            document.getElementById("formAuthor").value,
-            document.getElementById("formTitle").value,
-            document.getElementById("formPages").value,
-            document.getElementById("formRead").checked);
+            formData.get("author"),
+            formData.get("title"),
+            formData.get("pages"),
+            formData.get("read") != null);
     }
     dialog.close();
-    document.getElementById("addForm").reset();
+    form.reset();
     displayLibrary();
 });
 

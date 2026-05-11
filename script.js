@@ -150,7 +150,9 @@ const form = document.getElementById("addForm");
 const openBtn = document.getElementById("addBtn");
 
 form.addEventListener('reset', function() {
-   document.getElementById("formId").value = ""; 
+    this.querySelectorAll("input[type=hidden]").forEach(input=>{
+        input.value = "";
+    });
 });
 
 openBtn.addEventListener("click", () => {

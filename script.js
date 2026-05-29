@@ -1,32 +1,40 @@
 const myLibrary = [];
 
-function Book(author, title, pages, read) {
-    this.id = crypto.randomUUID();
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
-}
+class Book {
 
-Book.prototype.changeReadStatus = function(){
-    this.read = !(this.read);
-};
+    id = crypto.randomUUID();
+    author;
+    title;
+    pages;
+    read;
 
-Book.prototype.edit = function(){
-    document.getElementById("formId").value = this.id;
-    document.getElementById("formAuthor").value = this.author;
-    document.getElementById("formTitle").value = this.title;
-    document.getElementById("formPages").value = this.pages;
-    document.getElementById("formRead").checked = this.read;
-    toggleForm("change");
-    dialog.showModal();
-}
+    constructor(author, title, pages, read){
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;    
+    }
 
-Book.prototype.changeData = function(author, title, pages, read){
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
+    changeReadStatus(){
+        this.read = !(this.read);
+    }
+
+    edit (){
+        document.getElementById("formId").value = this.id;
+        document.getElementById("formAuthor").value = this.author;
+        document.getElementById("formTitle").value = this.title;
+        document.getElementById("formPages").value = this.pages;
+        document.getElementById("formRead").checked = this.read;
+        toggleForm("change");
+        dialog.showModal();
+    }
+
+    changeData (author, title, pages, read){
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function toggleForm(variant){

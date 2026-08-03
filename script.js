@@ -170,15 +170,18 @@ saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     let valid = true;
-    const requiredInputs = form.querySelectorAll("input[required]");
-    for(input of requiredInputs){
-        if(input.value==""){
+    const inputs = form.querySelectorAll("input");
+    for(input of inputs){
+        let errorMsg = "";
+        if(!input.validity.valid){
             input.classList.add("validated");
             valid = false;
+            const nameInCamelcase = input.name[0].toUpperCase() + input.name.substring(1);
+            errorMsg = `Field ${nameInCamelcase} cannot be empty!`;
         }
+        toggleError(errorMsg, input);
     }
     if(!valid){
-        alert("Bitte alle Pflichtfelder ausfüllen!");
         return;
     }
     if(formData.get("id") == ""){
@@ -227,4 +230,11 @@ function editBook(e){
         return book.id == id;
     });
     book.edit();
+}
+
+function toggleError(msg, input){
+    const errorSpan = input.parentElement.querySelector(".error");
+    if(!errorSpan) return;
+    errorSpan.textContent = msg;
+    errorSpan.style.display = msg.length>0 ? "block" : "none";
 }

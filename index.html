@@ -23,8 +23,16 @@
         <h3 class="change">Change your book details:</h3>
         <form action="" id="addForm">
             <input type="hidden" name="id" id="formId">
-            <p class="form-row"><label for="formAuthor">Author:</label><input type="text" name="author" id="formAuthor" required></p>
-            <p class="form-row"><label for="formTitle">Title:</label><input type="text" name="title" id="formTitle" required></p>
+            <p class="form-row">
+                <label for="formAuthor">Author:</label>
+                <input type="text" name="author" id="formAuthor" required>
+                <span class="error"></span>
+            </p>
+            <p class="form-row">
+                <label for="formTitle">Title:</label>
+                <input type="text" name="title" id="formTitle" required>
+                <span class="error"></span>
+            </p>
             <p class="form-row"><label for="formPages">Pages:</label><input type="number" name="pages" id="formPages"></p>
             <label for="formRead"><input type="checkbox" name="read" id="formRead" value="read"> Have you read it?</label>
         </form>

@@ -91,9 +91,11 @@ input:required {
 .error {
     display: none;
     grid-column: 2;
-    padding-top: 3px;
+    padding: 3px;
     color: red;
     font-size: 0.9rem;
+    background-color: lightpink;
+    border-radius: 0 0 3px 3px;
 }
 
 .card {
